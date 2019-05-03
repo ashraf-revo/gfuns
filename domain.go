@@ -79,12 +79,13 @@ type FFprobe struct {
 	} `json:"format"`
 }
 type GCSEvent struct {
-	Bucket     string     `json:"bucket"`
-	Name       string     `json:"name"`
-	Pattern    string     `json:"pattern"`
-	Resolution Resolution `json:"resolution"`
-	Meta       Meta       `json:"meta"`
-	File       File       `json:"file"`
+	Bucket     string       `json:"bucket"`
+	Name       string       `json:"name"`
+	Pattern    string       `json:"pattern"`
+	Resolution Resolution   `json:"resolution"`
+	Meta       Meta         `json:"meta"`
+	File       File         `json:"file"`
+	Impls      []Resolution `json:"impls"`
 }
 type Meta struct {
 	Key string `json:"key"`
