@@ -48,17 +48,17 @@ func Mp4(url string, ffprobe FFprobe, gcsEvent GCSEvent) ([]string, string, erro
 	message, err := ffmpeg("-y", "-v", "error", "-i", url, "-f", "mp4", "-s", strconv.FormatInt(int64(gcsEvent.Resolution.Width), 10)+"x"+strconv.FormatInt(int64(gcsEvent.Resolution.Height), 10), dir+"/"+getBaseName(GetName(gcsEvent.Name))+".mp4")
 	return walk(dir), message, err
 }
-func png(url string, ffprobe FFprobe, gcsEvent GCSEvent) ([]string, string, error) {
+func Png(url string, ffprobe FFprobe, gcsEvent GCSEvent) ([]string, string, error) {
 	dir, _ := createDir(gcsEvent.Pattern + "/" + GetName(gcsEvent.Name))
 	message, err := ffmpeg("-y", "-v", "error", "-i", url, "-vframes", "1", "-vf", "select='gte(n\\,10)',scale=320:-1", "-ss", "00:00:10", dir+"/"+getBaseName(GetName(gcsEvent.Name))+".png")
 	return walk(dir), message, err
 }
-func jpeg(url string, ffprobe FFprobe, gcsEvent GCSEvent) ([]string, string, error) {
+func Jpeg(url string, ffprobe FFprobe, gcsEvent GCSEvent) ([]string, string, error) {
 	dir, _ := createDir(gcsEvent.Pattern + "/" + GetName(gcsEvent.Name))
 	message, err := ffmpeg("-y", "-v", "error", "-i", url, "-vf", "select='gte(n\\,10)',scale=144:-1", dir+"/"+getBaseName(GetName(gcsEvent.Name))+"_%d.jpeg")
 	return walk(dir), message, err
 }
-func webp(url string, ffprobe FFprobe, gcsEvent GCSEvent) ([]string, string, error) {
+func Webp(url string, ffprobe FFprobe, gcsEvent GCSEvent) ([]string, string, error) {
 	dir, _ := createDir(gcsEvent.Pattern + "/" + GetName(gcsEvent.Name))
 	message, err := ffmpeg("-y", "-v", "error", "-i", url, "-loop", "0", "-vf", "select='gte(n\\,10)',scale=320:-1", "-ss", "00:00:2", "-t", "00:00:03", dir+"/"+getBaseName(GetName(gcsEvent.Name))+".webp")
 	return walk(dir), message, err
