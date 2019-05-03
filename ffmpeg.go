@@ -43,7 +43,7 @@ func ffmpeg(arg ...string) (string, error) {
 	}
 	return out.String(), nil
 }
-func mp4(url string, ffprobe FFprobe, gcsEvent GCSEvent) ([]string, string, error) {
+func Mp4(url string, ffprobe FFprobe, gcsEvent GCSEvent) ([]string, string, error) {
 	dir, _ := createDir(gcsEvent.Pattern + "/" + getName(gcsEvent.Name))
 	message, err := ffmpeg("-y", "-v", "error", "-i", url, "-f", "mp4", "-s", strconv.FormatInt(int64(gcsEvent.Resolution.Width), 10)+"x"+strconv.FormatInt(int64(gcsEvent.Resolution.Height), 10), dir+"/"+getBaseName(getName(gcsEvent.Name))+".mp4")
 	return walk(dir), message, err
