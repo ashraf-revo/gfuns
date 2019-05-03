@@ -15,7 +15,7 @@ import (
 	"time"
 )
 
-func notifiy(data string, exchange string) {
+func Notifiy(data string, exchange string) {
 	jsonValue, _ := json.Marshal(Result{Properties: Properties{ContentType: "application/json", DeliveryMode: 2, Priority: 0, Timestamp: int(time.Now().Unix()), MessageID: uuid.New().String()}, Payload: string(data), PayloadEncoding: "string", RoutingKey: exchange + ".s1"})
 	_, err := http.Post("https://"+os.Getenv("username")+":"+os.Getenv("password")+"@"+os.Getenv("host")+"/api/exchanges/"+os.Getenv("username")+"/"+exchange+"/publish", "application/json", bytes.NewBuffer(jsonValue))
 	if err != nil {
