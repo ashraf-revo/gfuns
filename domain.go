@@ -86,6 +86,7 @@ type GCSEvent struct {
 	Meta       Meta         `json:"meta"`
 	File       File         `json:"file"`
 	Impls      []Resolution `json:"impls"`
+	Result     []string     `json:"result"`
 }
 type Meta struct {
 	Key string `json:"key"`
