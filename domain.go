@@ -1,4 +1,4 @@
-package gfuns
+package func1
 
 type FFprobe struct {
 	Streams []struct {

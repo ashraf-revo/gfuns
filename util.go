@@ -1,4 +1,4 @@
-package gfuns
+package func1
 
 import (
 	"bytes"
@@ -22,7 +22,7 @@ func notifiy(data string, exchange string) {
 		log.Fatal(err)
 	}
 }
-func next(fun string, gcsEvent GCSEvent) {
+func Next(fun string, gcsEvent GCSEvent) {
 	show(fun, gcsEvent)
 	jsonValue, _ := json.Marshal(gcsEvent)
 	_, _ = http.Post("https://us-central1-ivory-program-229516.cloudfunctions.net/"+fun, "application/json", bytes.NewBuffer(jsonValue))
@@ -87,12 +87,12 @@ func getBaseName(name string) string {
 	split := strings.Split(name, ".")
 	return split[0]
 }
-func getName(rawUrl string) string {
+func GetName(rawUrl string) string {
 	parse, _ := url.Parse(rawUrl)
 	split := strings.Split(parse.Path, "/")
 	return split[len(split)-1]
 }
-func decode(v interface{}, request *http.Request) error {
+func Decode(v interface{}, request *http.Request) error {
 	if request.Method != http.MethodPost {
 		return errors.New("Method Not Allowed")
 	}

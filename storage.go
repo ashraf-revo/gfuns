@@ -1,4 +1,4 @@
-package gfuns
+package func1
 
 import (
 	"cloud.google.com/go/storage"
@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-func generateUrl(bucket, key string) (string, error) {
+func GenerateUrl(bucket, key string) (string, error) {
 	return storage.SignedURL(bucket, key, &storage.SignedURLOptions{
 		GoogleAccessID: os.Getenv("GoogleAccessID"),
 		PrivateKey:     []byte(os.Getenv("PrivateKey")),

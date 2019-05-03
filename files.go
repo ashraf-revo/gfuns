@@ -1,4 +1,4 @@
-package gfuns
+package func1
 
 import (
 	"archive/zip"
@@ -13,7 +13,7 @@ import (
 	"path/filepath"
 )
 
-func download(gcsEvent GCSEvent, path os.File) error {
+func Download(gcsEvent GCSEvent, path os.File) error {
 	out, err := os.Create(path.Name())
 	if err != nil {
 		log.Fatal(err)
@@ -39,7 +39,7 @@ func download(gcsEvent GCSEvent, path os.File) error {
 	}
 	return nil
 }
-func unzip(path string) ([]string, error) {
+func Unzip(path string) ([]string, error) {
 	r, err := zip.OpenReader(path)
 	if err != nil {
 		return walk(path), nil
@@ -101,7 +101,7 @@ func walk(dir string) []string {
 	})
 	return files
 }
-func each(files []string, getKey func(it string, to GCSEvent) string, ctx context.Context, to GCSEvent) ([]string, error) {
+func Each(files []string, getKey func(it string, to GCSEvent) string, ctx context.Context, to GCSEvent) ([]string, error) {
 	client, err := storage.NewClient(ctx)
 	var result []string
 	if err != nil {
