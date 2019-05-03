@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/google/uuid"
+	"gopkg.in/mgo.v2/bson"
 	"log"
 	"net/http"
 	"net/url"
@@ -62,7 +63,7 @@ func getLess(resolution Resolution) []Resolution {
 	all := []Resolution{{Width: 256, Height: 144}, {Width: 426, Height: 240}, {Width: 640, Height: 360}, {Width: 854, Height: 480}, {Width: 1280, Height: 720}, {Width: 1920, Height: 1080}, {Width: 2560, Height: 1440}, {Width: 3840, Height: 2160}, {Width: 7680, Height: 4320}}
 	for _, v := range all {
 		if v.Width*v.Height <= resolution.Width*resolution.Height {
-			temp = append(temp, v)
+			temp = append(temp, Resolution{Id: bson.NewObjectId().Hex(), Width: v.Width, Height: v.Height})
 		}
 
 	}
