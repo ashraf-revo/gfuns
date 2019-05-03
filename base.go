@@ -1,4 +1,4 @@
-package func1
+package gfuns
 
 import (
 	"github.com/joho/godotenv"

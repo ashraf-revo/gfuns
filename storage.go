@@ -1,4 +1,4 @@
-package func1
+package gfuns
 
 import (
 	"cloud.google.com/go/storage"
