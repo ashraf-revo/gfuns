@@ -58,6 +58,21 @@ func GetResolutionImpls(probe FFprobe) []Resolution {
 	}
 	return getLess(resolution)
 }
+func GetBeastResolution(probe FFprobe) Resolution {
+	temp := 0
+	resolution := Resolution{}
+
+	for i := 0; i < probe.Format.NbStreams; i++ {
+		if probe.Streams[i].CodecType == "video" {
+			if probe.Streams[i].Width*probe.Streams[i].Height > temp {
+				temp = probe.Streams[i].Width * probe.Streams[i].Height
+				resolution = Resolution{Width: (probe.Streams[i].Width * 2) / 2, Height: (probe.Streams[i].Height * 2) / 2}
+			}
+		}
+	}
+	return resolution
+}
+
 func getLess(resolution Resolution) []Resolution {
 	var temp []Resolution
 	all := []Resolution{{Width: 256, Height: 144}, {Width: 426, Height: 240}, {Width: 640, Height: 360}, {Width: 854, Height: 480}, {Width: 1280, Height: 720}, {Width: 1920, Height: 1080}, {Width: 2560, Height: 1440}, {Width: 3840, Height: 2160}, {Width: 7680, Height: 4320}}
