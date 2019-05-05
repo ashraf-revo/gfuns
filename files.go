@@ -121,3 +121,11 @@ func Each(files []string, getKey func(it string, to GCSEvent) string, ctx contex
 	}
 	return result, tempErr
 }
+func Read(file string) string {
+	bytes, e := ioutil.ReadFile(file)
+	if e != nil {
+		return string(bytes)
+	} else {
+		return ""
+	}
+}
