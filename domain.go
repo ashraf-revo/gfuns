@@ -89,7 +89,7 @@ type GCSEvent struct {
 	File       File         `json:"file"`
 	Impls      []Resolution `json:"impls"`
 	Result     []string     `json:"result"`
-	Index      Index        `json:"index"`
+	Tags       Tags         `json:"tags"`
 }
 type Meta struct {
 	Key string `json:"key"`
@@ -124,7 +124,7 @@ type Result struct {
 	Payload         string     `json:"payload"`
 	PayloadEncoding string     `json:"payload_encoding"`
 }
-type Index struct {
+type Tags struct {
 	Master string `json:"master"`
 	Index  string `json:"index"`
 }
