@@ -93,6 +93,7 @@ type GCSEvent struct {
 }
 type Meta struct {
 	Key string `json:"key"`
+	Iv  string `json:"iv"`
 }
 type Base struct {
 	Id          string `json:"id"`
