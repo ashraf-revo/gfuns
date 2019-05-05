@@ -80,6 +80,7 @@ type FFprobe struct {
 }
 type GCSEvent struct {
 	Id         string       `json:"id"`
+	Time       int          `json:"time"`
 	Bucket     string       `json:"bucket"`
 	Name       string       `json:"name"`
 	Pattern    string       `json:"pattern"`
