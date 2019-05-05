@@ -79,6 +79,7 @@ type FFprobe struct {
 	} `json:"format"`
 }
 type GCSEvent struct {
+	Id         string       `json:"id"`
 	Bucket     string       `json:"bucket"`
 	Name       string       `json:"name"`
 	Pattern    string       `json:"pattern"`
