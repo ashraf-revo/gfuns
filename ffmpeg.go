@@ -13,7 +13,7 @@ import (
 
 func Split(url string, ffprobe FFprobe) ([]string, string, error) {
 	dir, _ := createDir(ffprobe.Format.Filename)
-	message, err := ffmpeg("-y", "-v", "error", "-i", url, "-f", "segment", "-codec:", "copy", "-segment_time", "600", dir+"/"+getBaseName(GetName(ffprobe.Format.Filename))+"_%d"+filepath.Ext(GetName(url)))
+	message, err := ffmpeg("-y", "-v", "error", "-i", url, "-f", "segment", "-codec:", "copy", "-segment_time", "60", dir+"/"+getBaseName(GetName(ffprobe.Format.Filename))+"_%d"+filepath.Ext(GetName(url)))
 	return walk(dir), message, err
 }
 func Probe(url string) (FFprobe, error) {
