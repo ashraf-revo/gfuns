@@ -15,7 +15,7 @@ func GenerateUrl(bucket, key string) (string, error) {
 	return storage.SignedURL(bucket, key, &storage.SignedURLOptions{
 		GoogleAccessID: os.Getenv("GoogleAccessID"),
 		PrivateKey:     []byte(os.Getenv("PrivateKey")),
-		Expires:        time.Now().Add(time.Second * 60),
+		Expires:        time.Now().Add(time.Second * 600),
 		Method:         "GET",
 	})
 }
