@@ -63,7 +63,9 @@ func Webp(url string, gcsEvent GCSEvent) ([]string, string, error) {
 }
 func Hls(url string, gcsEvent GCSEvent) ([]string, string, error) {
 	dir, _ := createDir(gcsEvent.Pattern + "/" + GetName(gcsEvent.Name))
+	urls := generateMultipleUrl("asrevo-video", List(url))
+	write(dir+"/files.txt", urls)
 	name := getBaseName(GetName(gcsEvent.Name))
-	message, err := ffmpeg("-y", "-v", "error", "-i", url, "-hls_segment_type", "mpegts", "-f", "hls", "-codec:", "copy", "-start_number", "0", "-hls_time", "2", "-hls_list_size", "0", "-hls_enc", "1", "-hls_enc_key", gcsEvent.Meta.Key, "-hls_enc_key_url", dir+"/"+name+".key", "-hls_enc_iv", gcsEvent.Meta.Iv, "-master_pl_name", name+".m3u8", dir+"/"+name+"_"+".m3u8")
+	message, err := ffmpeg("-y", "-v", "error", "-protocol_whitelist", "\"file,http,https,tcp,tls,concat\"", "-f", "concat", "-i", dir+"/files.txt", "-safe", "0", "-hls_segment_type", "mpegts", "-f", "hls", "-codec:", "copy", "-start_number", "0", "-hls_time", "2", "-hls_list_size", "0", "-hls_enc", "1", "-hls_enc_key", gcsEvent.Meta.Key, "-hls_enc_key_url", dir+"/"+name+".key", "-hls_enc_iv", gcsEvent.Meta.Iv, "-master_pl_name", name+".m3u8", dir+"/"+name+"_"+".m3u8")
 	return walk(dir), message, err
 }

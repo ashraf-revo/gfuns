@@ -55,3 +55,13 @@ func List(parent string) []string {
 	}
 	return result
 }
+func generateMultipleUrl(bucket string, keys []string) []string {
+	var result []string
+	for _, v := range keys {
+		s, e := GenerateUrl(bucket, v)
+		if e == nil {
+			result = append(result, s)
+		}
+	}
+	return result
+}

@@ -129,3 +129,17 @@ func Read(file string) string {
 		return ""
 	}
 }
+
+func write(path string, strings []string) {
+	file, err := os.Create(path)
+	if err != nil {
+		log.Fatal("Cannot create file", err)
+	}
+	for i, v := range strings {
+		_, _ = file.WriteString("file '" + v + "'")
+		if i != len(strings)-1 {
+			_, _ = file.WriteString("\n")
+		}
+	}
+	defer func() { _ = file.Close() }()
+}
