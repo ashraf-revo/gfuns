@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
@@ -37,9 +36,11 @@ func ffmpeg(arg ...string) (string, error) {
 	cmd.Stdout = &out
 	err := cmd.Run()
 	if err != nil {
+		fmt.Println(out.String(), err)
 		log.Fatal(err)
 		return out.String(), err
 	}
+	fmt.Println(out.String(), err)
 	return out.String(), nil
 }
 func Mp4(url string, gcsEvent GCSEvent) ([]string, string, error) {
@@ -66,16 +67,7 @@ func Hls(url string, gcsEvent GCSEvent) ([]string, string, error) {
 	dir, _ := createDir(gcsEvent.Pattern + "/" + GetName(gcsEvent.Name))
 	urls := generateMultipleUrl("asrevo-video", List(url))
 	write(dir+"/files.txt", urls)
-	file, e := ioutil.ReadFile(dir + "/files.txt")
-	if e != nil {
-		fmt.Println(e)
-	}
-	fmt.Println(string(file))
-
 	name := getBaseName(GetName(gcsEvent.Name))
 	message, err := ffmpeg("-y", "-v", "error", "-safe", "0", "-protocol_whitelist", "\"file,http,https,tcp,tls,concat\"", "-f", "concat", "-i", dir+"/files.txt", "-hls_segment_type", "mpegts", "-f", "hls", "-codec:", "copy", "-start_number", "0", "-hls_time", "2", "-hls_list_size", "0", "-hls_enc", "1", "-hls_enc_key", gcsEvent.Meta.Key, "-hls_enc_key_url", dir+"/"+name+".key", "-hls_enc_iv", gcsEvent.Meta.Iv, "-master_pl_name", name+".m3u8", dir+"/"+name+"_"+".m3u8")
-	fmt.Println(err)
-	fmt.Println(message)
-
 	return walk(dir), message, err
 }
