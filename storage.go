@@ -4,6 +4,7 @@ import (
 	"cloud.google.com/go/storage"
 	"context"
 	"fmt"
+	"google.golang.org/api/iterator"
 	"io"
 	"log"
 	"os"
@@ -36,4 +37,21 @@ func push(client *storage.Client, ctx context.Context, bucket, file, object stri
 		return err
 	}
 	return nil
+}
+func List(parent string) []string {
+	var result []string
+	ctx := context.Background()
+	client, err := storage.NewClient(ctx)
+	if err != nil {
+		log.Fatalf("Failed to create client: %v", err)
+	}
+	iter := client.Bucket("asrevo-video").Objects(ctx, &storage.Query{Prefix: parent})
+	for {
+		o, err := iter.Next()
+		if err == iterator.Done {
+			break
+		}
+		result = append(result, o.Name)
+	}
+	return result
 }
