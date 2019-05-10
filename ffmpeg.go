@@ -45,7 +45,7 @@ func ffmpeg(arg ...string) (string, error) {
 }
 func Mp4(url string, gcsEvent GCSEvent) ([]string, string, error) {
 	dir, _ := createDir(gcsEvent.Pattern + "/" + GetName(gcsEvent.Name))
-	message, err := ffmpeg("-y", "-v", "error", "-i", url, "-f", "mp4", "-s", strconv.FormatInt(int64(gcsEvent.Resolution.Width), 10)+"x"+strconv.FormatInt(int64(gcsEvent.Resolution.Height), 10), dir+"/"+GetRealName(gcsEvent.Name)+".mp4")
+	message, err := ffmpeg("-y", "-v", "error", "-i", url, "-f", "mp4", "-s", strconv.FormatInt(int64(gcsEvent.Resolution.Width), 10)+"x"+strconv.FormatInt(int64(gcsEvent.Resolution.Height), 10), dir+"/"+getBaseName(GetName(gcsEvent.Name))+".mp4")
 	return walk(dir), message, err
 }
 func Png(url string, gcsEvent GCSEvent) ([]string, string, error) {
