@@ -106,8 +106,14 @@ func getBaseName(name string) string {
 func GetName(rawUrl string) string {
 	parse, _ := url.Parse(rawUrl)
 	split := strings.Split(parse.Path, "/")
+	return split[len(split)-1]
+}
+func GetRealName(rawUrl string) string {
+	parse, _ := url.Parse(rawUrl)
+	split := strings.Split(parse.Path, "/")
 	return split[1]
 }
+
 func Decode(v interface{}, request *http.Request) error {
 	if request.Method != http.MethodPost {
 		return errors.New("Method Not Allowed")
