@@ -60,7 +60,7 @@ func Jpeg(url string, gcsEvent GCSEvent) ([]string, string, error) {
 }
 func Webp(url string, gcsEvent GCSEvent) ([]string, string, error) {
 	dir, _ := createDir(gcsEvent.Pattern + "/" + GetName(gcsEvent.Name))
-	message, err := ffmpeg("-y", "-v", "error", "-i", url, "-loop", "0", "-vf", "select='gte(n\\,10)',scale=320:-1", "-ss", "00:00:2", "-t", "00:00:03", dir+"/"+GetRealName(gcsEvent.Name)+".webp")
+	message, err := ffmpeg("-y", "-v", "error", "-i", url, "-loop", "0", "-vf", "select='gte(n\\,10)',scale=320:-1", "-ss", "00:00:10", "-t", "00:00:03", dir+"/"+GetRealName(gcsEvent.Name)+".webp")
 	return walk(dir), message, err
 }
 func Hls(url string, gcsEvent GCSEvent) ([]string, string, error) {
